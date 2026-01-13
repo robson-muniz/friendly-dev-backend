@@ -1,108 +1,126 @@
-# Friendly Dev Strapi Backend
+# 🚀 Friendly Dev | Headless CMS (Strapi 5)
 
-This is the **Strapi backend** for the **Friendly Dev** website from the **Modern React From The Beginning** course. It provides the API for managing **projects** and **blog posts** displayed on the frontend.
+[![Strapi Version](https://img.shields.io/badge/Strapi-v5.15.0-blue.svg)](https://strapi.io/)
+[![Node Version](https://img.shields.io/badge/Node->=18.0.0-green.svg)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue.svg)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-You can find the frontend React website [here](https://github.com/bradtraversy/friendly-dev-frontend).
-
-<img src="/public/screen.png" alt="Strapi Admin Screenshot" />
-
----
-
-## 🧱 Features
-
-- REST API for Projects and Blog Posts
-- Rich media upload support (via Strapi Media Library)
-- Cloudinary integration for image uploads
-- Custom fields including image, tags, description, etc.
-- Role-based admin panel
-- Easily deployable to services like Render, Railway, or DigitalOcean
+The robust backend powering the **Friendly Dev** platform. Built with Strapi 5, this API manages project portfolios and technical blog content with a focus on performance, scalability, and ease of use.
 
 ---
 
-## 🛠️ Setup Instructions
+## 🏗️ Architecture & Tech Stack
 
-### 1. Clone the Repo
+- **Core:** [Strapi v5](https://strapi.io/) (Headless CMS)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Database:** PostgreSQL (Neon.tech) / SQLite (Local Dev)
+- **Media Storage:** [Cloudinary](https://cloudinary.com/)
+- **Frontend Integration:** React-based architecture
 
-```bash
-git clone https://github.com/bradtraversy/friendly-dev-backend.git
-cd friendly-dev-backend
-```
+## ✨ Key Features
 
-2. Install Dependencies
+- **Content Management:** Fully customized Project and Blog Post models.
+- **Media Optimization:** Automatic image hosting and transformation via Cloudinary.
+- **Advanced API:** RESTful endpoints with built-in support for filtering, sorting, and deep population.
+- **Security:** Role-Based Access Control (RBAC) and JWT authentication.
+- **Performance:** Optimized queries and efficient data structures.
 
-```bash
-npm install
-```
+---
 
-3. Configure Environment
+## 🛠️ Getting Started
 
-Copy the example env file:
+### Prerequisites
 
-```bash
-cp .env.example .env
-```
+- **Node.js:** `>=18.0.0 <=22.x.x`
+- **NPM:** `>=6.0.0`
+- **Database:** PostgreSQL (recommended for production) or SQLite (dev).
 
-Then update .env with your database connection and other required settings. We use a Neon PostgreSQL database. So you need to create an account at neon.com and then add your own database string.
+### Installation
 
-4. Start the Server
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/bradtraversy/friendly-dev-backend.git
+   cd friendly-dev-backend
+   ```
 
-```bash
-npm run develop
-```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-This will launch Strapi in development mode at:
+3. **Environment Configuration:**
+   Copy the example environment file and update it with your credentials:
+   ```bash
+   cp .env.example .env
+   ```
+   *Note: Ensure you provide your `CLOUDINARY_*` and `DATABASE_*` credentials in the `.env` file.*
 
-```
-http://localhost:1337/admin
-```
+4. **Launch Development Server:**
+   ```bash
+   npm run develop
+   ```
+   Access the admin panel at: [http://localhost:1337/admin](http://localhost:1337/admin)
 
-📦 API Endpoints
+---
 
-Example public endpoints:
+## ⚙️ Configuration
 
-- /api/posts
-- /api/projects
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `PORT` | Server port | `1337` |
+| `DATABASE_CLIENT` | DB Type (`postgres` or `sqlite`) | `sqlite` |
+| `CLOUDINARY_NAME` | Cloudinary Cloud Name | - |
+| `CLOUDINARY_KEY` | Cloudinary API Key | - |
+| `CLOUDINARY_SECRET`| Cloudinary API Secret | - |
 
-You can use query parameters for:
+---
 
-- Sorting: ?sort=date:desc
-- Filtering: ?filters[category][$eq]=design
-- Pagination: ?pagination[limit]=5
-- Population: ?populate=image
+## 🔌 API Documentation
 
-🔐 Permissions
+The API follows standard REST patterns. All responses are in JSON format.
 
-Make sure to allow public access to the required content types:
+### Endpoints
 
-- Go to `Settings > Roles > Public`
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/posts` | Fetch all blog posts |
+| `GET` | `/api/posts/:id` | Fetch a single post |
+| `GET` | `/api/projects` | Fetch all projects |
+| `GET` | `/api/projects/:id` | Fetch a single project |
 
-- Enable `find` and `findOne` for post and project
+### Common Query Parameters
 
-🖼 Media Uploads
+- **Population:** `?populate=*` (Retrieve related media/data)
+- **Sorting:** `?sort=createdAt:desc`
+- **Filtering:** `?filters[category][$eq]=design`
+- **Pagination:** `?pagination[pageSize]=10&pagination[page]=1`
 
-By default, media is stored locally under `/public/uploads`.
+---
 
-This project uses Cloudinary. You need to add the keys from your own Cloudinary account.
+## 🔐 Permissions Setup
 
-MIT License
+To enable public access for the frontend:
+1. Navigate to **Settings** > **Users & Permissions Plugin** > **Roles**.
+2. Select the **Public** role.
+3. Under **Permissions**, locate `Post` and `Project`.
+4. Check `find` and `findOne` for both.
+5. Save changes.
 
-Copyright (c) 2025 Traversy Media
+---
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights  
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell  
-copies of the Software, and to permit persons to whom the Software is  
-furnished to do so, subject to the following conditions:
+## 🚀 Deployment
 
-The above copyright notice and this permission notice shall be included in  
-all copies or substantial portions of the Software.
+This application is ready for deployment on platforms like **Render**, **Railway**, or **DigitalOcean App Platform**.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR  
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,  
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE  
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER  
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,  
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN  
-THE SOFTWARE.
-# friendly-dev-backend
+1. Set up a PostgreSQL database (e.g., [Neon.tech](https://neon.tech/)).
+2. Configure environment variables on your hosting provider.
+3. Run `npm run build` followed by `npm run start`.
+
+---
+
+## 📜 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+Created with ❤️ by Robson Muniz, Portugal.
